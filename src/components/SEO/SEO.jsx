@@ -3,7 +3,6 @@ import Helmet from 'react-helmet'
 import PropTypes from 'prop-types'
 import { useStaticQuery, graphql } from 'gatsby'
 import Facebook from './Facebook'
-import Twitter from './Twitter'
 import i18n from '../../../config/i18n'
 
 // Complete tutorial: https://www.gatsbyjs.org/docs/add-seo-component/
@@ -14,7 +13,7 @@ const SEO = ({ title, desc, banner, pathname, article, node, locale }) => {
 
   const {
     buildTime,
-    siteMetadata: { siteUrl, defaultBanner, ogLanguage, author, twitter, facebook },
+    siteMetadata: { siteUrl, defaultBanner, ogLanguage, author, facebook },
   } = site
 
   const localizedPath = i18n[locale].default ? '' : `/${i18n[locale].path}`
@@ -166,7 +165,6 @@ const SEO = ({ title, desc, banner, pathname, article, node, locale }) => {
         locale={ogLanguage}
         name={facebook}
       />
-      <Twitter title={seo.title} image={seo.image} desc={seo.description} username={twitter} />
     </>
   )
 }
@@ -202,7 +200,6 @@ const query = graphql`
         defaultBanner: banner
         ogLanguage
         author
-        twitter
         facebook
       }
     }

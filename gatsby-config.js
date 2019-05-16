@@ -1,8 +1,7 @@
 require('dotenv').config({
-  path: `.env`,
+  path: `.env.${process.env.NODE_ENV}`,
 })
 
-const prismicHtmlSerializer = require('./src/gatsby/htmlSerializer')
 const prismicLinkResolver = require('./src/gatsby/linkResolver')
 
 const website = require('./config/website')
@@ -29,12 +28,10 @@ module.exports = {
     {
       resolve: 'gatsby-source-prismic',
       options: {
-        repositoryName: 'gatsby-starter-prismic',
+        repositoryName: 'alessi',
         accessToken: `${process.env.API_KEY}`,
         // Get the correct URLs in blog posts
         linkResolver: () => prismicLinkResolver,
-        // PrismJS highlighting for labels and slices
-        htmlSerializer: () => prismicHtmlSerializer,
       },
     },
     'gatsby-plugin-lodash',
@@ -47,10 +44,24 @@ module.exports = {
       },
     },
     {
+      resolve: `gatsby-plugin-layout`,
+      options: {
+          component: require.resolve(`./src/components/Layout.jsx`)
+      }
+    },
+    {
       resolve: 'gatsby-plugin-google-analytics',
       options: {
         trackingId: website.googleAnalyticsID,
       },
+    },
+    {
+      resolve: 'gatsby-plugin-web-font-loader',
+      options: {
+        typekit: {
+          id: 'rnt8aku'
+        }
+      }
     },
     'gatsby-plugin-sitemap',
     {

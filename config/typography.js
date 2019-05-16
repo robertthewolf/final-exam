@@ -1,45 +1,21 @@
 import Typography from 'typography'
 
-// This website uses the system font stack after the placed "Lora" font
-// The scaleRatio will be overwritten for smaller breakpoints in src/components/Layout
-
 const typography = new Typography({
-  title: 'Gatsby Starter Prismic.io - i18n',
   baseFontSize: '18px',
   baseLineHeight: 1.45,
-  headerFontFamily: [
-    'Lora',
-    '-apple-system',
-    'BlinkMacSystemFont',
-    'Segoe UI',
-    'Roboto',
-    'Helvetica',
-    'Arial',
-    'sans-serif',
-    'Apple Color Emoji',
-    'Segoe UI Emoji',
-    'Segoe UI Symbol',
-  ],
-  bodyFontFamily: [
-    'Lora',
-    '-apple-system',
-    'BlinkMacSystemFont',
-    'Segoe UI',
-    'Roboto',
-    'Helvetica',
-    'Arial',
-    'sans-serif',
-    'Apple Color Emoji',
-    'Segoe UI Emoji',
-    'Segoe UI Symbol',
-  ],
+  headerFontFamily: ['Georgia', 'Times', 'Times New Roman', 'serif'],
+  bodyFontFamily: ['canada-type-gibson', 'sans-serif'],
   scaleRatio: 3.157,
-  headerWeight: 700,
+  headerWeight: 400,
   overrideStyles: () => ({
     img: {
       marginBottom: 0,
     },
+    h2: {
+      textAlign: 'center',
+    }
   }),
 })
 
 export default typography
+export const rhythm = typography.rhythm

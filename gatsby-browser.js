@@ -1,5 +1,10 @@
-import React from 'react'
+exports.shouldUpdateScroll = props => {
+    const currentPosition = props.getSavedScrollPosition(props.prevRouterProps.location)
+    // const currentPosition = getSavedScrollPosition(props.routerProps.location)
 
-import LocaleWrap from './wrapPageElement'
-
-export const wrapPageElement = LocaleWrap
+    console.log(currentPosition)
+  
+    if (currentPosition !== null) window.scrollTo(...(currentPosition))
+  
+    return false
+  }

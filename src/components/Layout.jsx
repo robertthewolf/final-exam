@@ -1,136 +1,80 @@
-/* eslint no-unused-expressions: 0 */
-/* eslint react/destructuring-assignment: 0 */
-
 import React from 'react'
 import PropTypes from 'prop-types'
-import { useStaticQuery, graphql, Link } from 'gatsby'
 import { Global, css } from '@emotion/core'
 import styled from '@emotion/styled'
+import { graphql, useStaticQuery } from 'gatsby'
 import { ThemeProvider } from 'emotion-theming'
-import '@reach/skip-nav/styles.css'
+import { ParallaxProvider } from 'react-scroll-parallax'
 
+import LocaleSwitcher from './LocaleSwitcher'
+import Header from './Header'
+import Nav from './Nav'
+import Slices from './Slices'
 import Footer from './Footer'
-import SkipNavLink from './SkipNavLink'
 import { theme, reset } from '../styles'
 import i18n from '../../config/i18n'
-
-import 'typeface-lora'
-import 'typeface-source-sans-pro'
 
 const globalStyle = css`
   ${reset}
   h1, h2, h3, h4, h5, h6 {
-    color: ${theme.colors.black};
+    color: ${theme.colors.white};
   }
   html {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-  }
-  body {
-    color: ${theme.colors.greyDarker};
     background-color: ${theme.colors.bg};
   }
+  body {
+    color: ${theme.colors.greyLight};
+    background-color: ${theme.colors.bg};
+    overflow-x: hidden;
+  }
   ::selection {
-    color: ${theme.colors.bg};
-    background-color: ${theme.colors.primary};
+    /* color: ${theme.colors.bg};
+    background-color: ${theme.colors.primary}; */
   }
   a {
-    color: ${theme.colors.primary};
     transition: all 0.4s ease-in-out;
     text-decoration: none;
-    font-weight: 700;
-    font-style: italic;
+    font-weight: 600;
     &:hover,
     &:focus {
       text-decoration: underline;
     }
   }
-  @media (max-width: ${theme.breakpoints.m}) {
-    html {
-      font-size: 16px !important;
-    }
-  }
-  @media (max-width: ${theme.breakpoints.s}) {
-    h1 {
-      font-size: 2.369rem !important;
-    }
-    h2 {
-      font-size: 1.777rem !important;
-    }
-    h3 {
-      font-size: 1.333rem !important;
-    }
-    h4 {
-      font-size: 1rem !important;
-    }
-    h5 {
-      font-size: 0.75rem !important;
-    }
-    h6 {
-      font-size: 0.563rem !important;
-    }
-  }
-`
-
-const LocaleSwitcher = styled.div`
-  position: absolute;
-  top: 0;
-  right: 0;
-  padding: 1rem;
 `
 
 const LocaleContext = React.createContext()
 
-const Layout = ({ children, pageContext: { locale } }) => {
+const Layout = ({ children, pageContext: { locale }, location }) => {
   const data = useStaticQuery(query)
-  const footer = data.allPrismicHomepage.edges
-    .filter(edge => edge.node.lang === locale)
-    .map(r => r.node.data.footer.html)
-    .toString()
+  const settings = data.allPrismicSiteSettings.edges.filter(e => e.node.lang === locale)[0].node
+
+  console.log(settings)
 
   return (
     <LocaleContext.Provider value={{ locale, i18n }}>
-      <ThemeProvider theme={theme}>
-        <>
-          <Global styles={globalStyle} />
-          <SkipNavLink />
-          <LocaleSwitcher data-name="locale-switcher">
-            <Link hrefLang="de-de" to="/">
-              DE
-            </Link>{' '}
-            /{' '}
-            <Link hrefLang="en-gb" to="/en">
-              EN
-            </Link>
-          </LocaleSwitcher>
-          {children}
-          <Footer>
-            <div dangerouslySetInnerHTML={{ __html: footer }} />
-          </Footer>
-        </>
-      </ThemeProvider>
+      <ParallaxProvider>
+        <ThemeProvider theme={theme}>
+          <>
+            <Global styles={globalStyle} />
+            <LocaleSwitcher pageContext={{locale}} />
+            <Header pageContext={{locale}} />
+            <Nav pageContext={{locale}} location={location} />
+            {children}
+            {/* <Footer>
+              <div dangerouslySetInnerHTML={{ __html: footer }} />
+            </Footer> */}
+          </>
+          <Slices allSlices={settings.data.body} />
+        </ThemeProvider>
+      </ParallaxProvider>
     </LocaleContext.Provider>
   )
 }
 
-export { LocaleContext, Layout }
-
-const query = graphql`
-  query LayoutQuery {
-    allPrismicHomepage {
-      edges {
-        node {
-          lang
-          data {
-            footer {
-              html
-            }
-          }
-        }
-      }
-    }
-  }
-`
+export default Layout
+export { LocaleContext }
 
 Layout.propTypes = {
   children: PropTypes.oneOfType([PropTypes.array, PropTypes.node]).isRequired,
@@ -138,3 +82,83 @@ Layout.propTypes = {
     locale: PropTypes.string.isRequired,
   }).isRequired,
 }
+
+
+const query = graphql`
+  query LayoutQuery {
+    allPrismicSiteSettings {
+      edges {
+        node {
+          id
+          lang
+          data {
+            body {
+              
+              ...on PrismicSiteSettingsBodyMap {
+                id
+                slice_type
+                primary {
+                  title {
+                    text
+                  }
+                  address {
+                    html
+                  }
+                  navigate_link {
+                    url
+                  }
+                  background_map {
+                    alt
+                    localFile {
+                      childImageSharp {
+                        fluid(maxWidth: 900, quality: 90) {
+                          ...GatsbyImageSharpFluid_withWebp
+                        }
+                      }
+                    }
+                  }
+                }
+                items {
+                  time {
+                    text
+                  }
+                  place {
+                    text
+                  }
+                }
+              }
+                            
+              ...on PrismicSiteSettingsBodyReview {
+                id
+                slice_type
+                primary {
+                  title {
+                    html
+                    text
+                  }
+                  text {
+                    html
+                    text
+                  }
+                  icon_code
+                }
+              }
+              
+              ...on PrismicSiteSettingsBodySocial {
+                id
+                slice_type
+                items {
+                  icon_code
+                  link1 {
+                    url
+                  }
+                }
+              }
+              
+            }
+          }
+        }
+      }
+    }
+  }
+`

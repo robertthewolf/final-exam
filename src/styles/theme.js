@@ -1,14 +1,14 @@
+import {keyframes} from '@emotion/core'
+
 const theme = {
   colors: {
-    primary: '#3D63AE',
-    bg: '#fff',
-    black: '#000',
-    greyLight: '#EBEDF2',
-    greyBlue: '#a2bce2',
-    grey: '#595C62',
-    greyDark: '#303643',
-    greyDarker: '#1c252b',
+    bg: '#2A2A31',
+    bgLight: '#525259',
+    black: '#000000',
+    white: '#FFFFFF',
+    greyLight: '#E5E5E5',
   },
+  borderRadius: '6px',
   maxWidth: '1000px',
   maxWidthText: '720px',
   breakpoints: {
@@ -17,6 +17,10 @@ const theme = {
     m: '900px',
     l: '1200px',
   },
+  transition: 'transition: all .2s ease-out',
+  animations: {
+    fadeIn: keyframes`to { opacity: 1; }`
+  }
 }
 
 export default theme
