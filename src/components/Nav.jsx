@@ -5,6 +5,7 @@ import { css } from '@emotion/core'
 import { graphql, useStaticQuery } from 'gatsby'
 import LocalizedLink from './LocalizedLink';
 import { rhythm } from '../../config/typography'
+import {fadeIn} from '../styles/animations'
 
 const Wrapper = styled.nav`
 margin: 2em auto;
@@ -13,7 +14,7 @@ justify-content: center;
 
 
 opacity: 0;
-animation: ${p => p.theme.animations.fadeIn} 1.5s ease-in 1.5s forwards;
+animation: ${fadeIn} 1.5s ease-in 1.5s forwards;
 
 a {
   display: block;

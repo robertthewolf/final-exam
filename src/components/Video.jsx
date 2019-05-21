@@ -3,15 +3,8 @@ import PropTypes from "prop-types";
 import styled from "@emotion/styled";
 import {keyframes} from "@emotion/core";
 import { Link } from 'gatsby'
-
-const fadeIn = keyframes`
- from {
-     opacity: 0;
- }
- to {
-     opacity: 1;
- }
-`
+import { Portal } from 'react-portal'
+import {fadeIn} from '../styles/animations'
 
 const Absolute = styled.div`
   position: fixed;
@@ -33,9 +26,8 @@ const Absolute = styled.div`
   }
 
   video {
-      width: 100%;
-      opacity: 0;
-    animation: ${fadeIn} 1s ease-out 1s forwards;
+    width: 100%;
+    max-height: 100vh;
   }
 `;
 
@@ -59,12 +51,14 @@ const Video = forwardRef((props, ref) => {
     }
 
     return (
-        <Absolute data-open={open} onClick={close}>
-            <video playsinline="true" ref={videoEl} onEnded={close}>
-                <source src={props.source} type="video/mp4" />
-                Your browser does not support the video tag.
-            </video>
-        </Absolute>
+        <Portal>
+            <Absolute data-open={open} onClick={close}>
+                <video playsinline="true" ref={videoEl} onEnded={close}>
+                    <source src={props.source} type="video/mp4" />
+                    Your browser does not support the video tag.
+                </video>
+            </Absolute>
+        </Portal>
     )
 })
 

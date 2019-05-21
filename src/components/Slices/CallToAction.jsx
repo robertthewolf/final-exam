@@ -14,7 +14,7 @@ const Container = styled.div`
   text-align: center;
 
   h2 {
-
+    padding-top: ${rhythm(.5)};
   }
 
   p {

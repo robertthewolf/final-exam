@@ -45,7 +45,7 @@ const Room = styled.button`
     left: 0;
     width: 100%;
     height: 100%;
-    border-radius: 150px 150px 10px 10px;
+    border-radius: 150px 150px 12px 12px;
     border: 1px solid ${p => p.theme.colors.white}25;
     transform: ${p => p.selected ? 'scale(1.02, 1.01)' : 'scale(.95)'};
     ${p => p.theme.transition}
@@ -55,6 +55,7 @@ const Room = styled.button`
     position: absolute;
     left: ${rhythm(1)};
     bottom: 0;
+    z-index: 5;
       
     @media (max-width: ${props => props.theme.breakpoints.m}) {
       bottom: ${rhythm(1)};
@@ -64,8 +65,9 @@ const Room = styled.button`
   p {
     position: absolute;
     right: ${rhythm(1)};
-    bottom: ${rhythm(.66)};
+    bottom: 0;
     font-weight: 600;
+    z-index: 5;
 
     @media (max-width: ${props => props.theme.breakpoints.m}) {
       right: auto;
@@ -75,13 +77,12 @@ const Room = styled.button`
   }
 
   small {
-    position: absolute;
+    /* position: absolute; */
+    display: block;
     font-weight: 400;
-    right: ${rhythm(1)};
-    bottom: ${rhythm(1)};
 
     @media (max-width: ${props => props.theme.breakpoints.m}) {
-      position: static;
+      display: inline-block;
     }
   }
 `;
@@ -93,6 +94,7 @@ const RoomImage = css`
   display: block;
   border-radius: 150px 150px 8px 8px;
   overflow: hidden;
+  z-index: 2;
 
 
   &:after {

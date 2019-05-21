@@ -1,13 +1,14 @@
-import React from "react";
+import React, {useEffect} from "react";
 import PropTypes from "prop-types";
 import styled from "@emotion/styled";
 import { css } from "@emotion/core";
 import Img from "gatsby-image";
 import { rhythm } from "../../../config/typography";
-import { Parallax } from "react-scroll-parallax";
+// import { Parallax } from "react-scroll-parallax";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlay } from "@fortawesome/free-solid-svg-icons";
-import PrismicLink from "../PrismicLInk"
+import PrismicLink from "../PrismicLink"
+import watchScroll from "../../utils/use-scroll-position"
 
 import Wrapper from "../Wrapper";
 
@@ -19,16 +20,22 @@ const Container = styled.section`
 `;
 
 
-const ParallaxImage = css`
+const ParallaxImage = styled.div`
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  z-index: -2;
+  transform: translateY(calc(var(--scroll-position) * -.3px));
+  opacity: calc(var(--scroll-position) * .002 + 1);
+  will-change: transform;
 `;
 
+
 const BannerImage = css`
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
   min-height: 130vh;
   object-fit: cover;
@@ -40,7 +47,6 @@ const Overlay = styled.div`
   left: 0;
   width: 100%;
   height: 100%;
-  z-index: -1;
   pointer-events: none;
   background: linear-gradient(
     to bottom,
@@ -50,8 +56,13 @@ const Overlay = styled.div`
   );
 `;
 
+const ContentWrapper = styled(Wrapper)`
+position: relative;
+z-index: 2;
+`
+
 const TextBox = styled.div`
-  margin-top: 40vh;
+  margin-top: 20vh;
   max-width: ${rhythm(13)};
 `;
 
@@ -74,18 +85,25 @@ const ButtonWrapper = styled.div`
 
 const Banner = ({ data }) => {
   
+  useEffect(() => {
+    if (typeof window !== `undefined`) {
+      window.location.hash = '#banner'
+      window.scrollTo(document.querySelector('#banner'));
+    }
+  }, []); 
+  
   return (
-    <Container>
-      <Parallax y={[-50, 50]} css={ParallaxImage}>
+    <Container id="banner">
+      <ParallaxImage ref={el => watchScroll(el)}>
         <Img
           fluid={data.primary.image1.localFile.childImageSharp.fluid}
           alt={data.primary.image1.alt}
           css={BannerImage}
         />
         <Overlay />
-      </Parallax>
+      </ParallaxImage>
       <Overlay />
-      <Wrapper>
+      <ContentWrapper>
         <TextBox dangerouslySetInnerHTML={{ __html: data.primary.text.html }} />
         <ButtonWrapper>
           <PrismicLink link_type={data.primary.cta_link.link_type} url={data.primary.cta_link.url}>
@@ -93,7 +111,7 @@ const Banner = ({ data }) => {
             <FontAwesomeIcon icon={faPlay} />
           </PrismicLink>
         </ButtonWrapper>
-      </Wrapper>
+      </ContentWrapper>
       
     </Container>
   );

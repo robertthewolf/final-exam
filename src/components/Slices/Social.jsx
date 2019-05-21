@@ -24,7 +24,6 @@ const Social = ({ data }) => {
 
     const socials = data.items.map(item => {
         const icon = getFontawesomeIcon(item.icon_code);
-        console.log(icon);
         return { icon, link: item.link1.url }
     })
 

@@ -6,9 +6,9 @@ import { withTheme } from 'emotion-theming';
 import { graphql, useStaticQuery } from 'gatsby'
 import Img from 'gatsby-image'
 import { Wrapper } from '../components'
-import logoSVG from '../img/logo_full.svg'
 import LocalizedLink from './LocalizedLink';
 import typography, {rhythm} from '../../config/typography'
+import {fadeIn} from '../styles/animations'
 
 
 const Hero = styled.header`
@@ -17,11 +17,11 @@ const Hero = styled.header`
   height: calc(10vw + 300px);
 `
 
-const HeroImage = (theme) => css`
+const HeroImage = css`
   object-fit: cover;
   height: 100%;
   opacity: 0;
-  animation: ${theme.animations.fadeIn} 3s ease-out 1s forwards;
+  animation: ${fadeIn} 3s ease-out 1s forwards;
 `
 
 
@@ -57,7 +57,7 @@ const Logo = styled.svg`
 
     path {
       opacity: 0;
-      animation: ${p => p.theme.animations.fadeIn} 2s ease-out .8s forwards;
+      animation: ${fadeIn} 2s ease-out .8s forwards;
     }
 
     .heart {
@@ -77,7 +77,7 @@ const HeroText = styled.h1`
   font-family: ${typography.options.bodyFontFamily.join(", ")};
 
   opacity: 0;
-  animation: ${p => p.theme.animations.fadeIn} 2.2s ease-out 1s forwards;
+  animation: ${fadeIn} 2.2s ease-out 1s forwards;
 
   p {
     display: inline-block;
@@ -89,11 +89,10 @@ const Header = (props) => {
     const data = useStaticQuery(query)
     const header = data.allPrismicSiteSettings.edges.filter(e => e.node.lang === props.pageContext.locale)[0].node.data
 
-    console.log(props.theme);
 
     return (
     <Hero>
-        <Img fluid={header.header_image.localFile.childImageSharp.fluid} alt={header.header_image.alt} css={HeroImage(props.theme)} />
+        <Img fluid={header.header_image.localFile.childImageSharp.fluid} alt={header.header_image.alt} css={HeroImage} />
         <HeroInner>
             <LocalizedLink to="/" css={Logo}>
               <Logo viewBox="0 0 193 66" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -117,7 +116,7 @@ const Header = (props) => {
     </Hero>
 )}
 
-export default withTheme(Header)
+export default Header
 
 
 Header.propTypes = {

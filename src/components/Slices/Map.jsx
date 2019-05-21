@@ -7,6 +7,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faDirections } from "@fortawesome/free-solid-svg-icons";
 import CircleType from "circletype";
 import { rhythm } from "../../../config/typography";
+import watchScroll from "../../utils/use-scroll-position"
 
 import Wrapper from "../Wrapper";
 
@@ -34,6 +35,7 @@ const RoundText = styled.pre`
   overflow: visible;
 
   position: absolute !important;
+  z-index: 2;
   top: calc(50% + ${rhythm(1)});
   left: 50%;
   transform: translate(-50%, -50%);
@@ -45,21 +47,37 @@ const RoundText = styled.pre`
   }
 `;
 
-const BackgroundMap = (radius) => css`
+const BackgroundMapWrapper = styled.div`
   position: absolute !important;
   top: calc(50% + ${rhythm(1)});
   left: 50%;
   border-radius: 50%;
   overflow: hidden;
+  width: ${p => p.radius * 4}px;
+  height: ${p => p.radius * 4}px;
   margin: 0 auto;
-  width: ${radius * 2 - 38}px;
-  height: ${radius * 2 - 38}px;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%) scale(.5);
 
-  > * {
-    animation: ${spin} 100s linear reverse infinite;
-    will-change: transform;
+
+  &:after {
+    content: "";
+    position: absolute;
+    top: -1px;
+    left: -1px;
+    width: calc(100% + 2px);
+    height: calc(100% + 2px);
+    background: radial-gradient(circle, #2a2a3100 0%, #2a2a31 70%);
   }
+
+`
+
+const BackgroundMap = css`
+    transform: scale(calc(var(--scroll-position) * -0.002 + 1.5));
+    will-change: transform;
+    /* > * {
+      animation: ${spin} 100s linear reverse infinite;
+      will-change: transform;
+    } */
 
   &:after {
     content: "";
@@ -103,6 +121,7 @@ const AdressBar = styled.div`
   align-items: center;
   border-radius: 8px;
   position: relative;
+  z-index: 5;
 
   p {
     display: inline-block;
@@ -142,11 +161,13 @@ const Map = ({ data }) => {
             </span>
           ))}
         </RoundText>
-        <Img
-          fluid={data.primary.background_map.localFile.childImageSharp.fluid}
-          alt={data.primary.background_map.alt}
-          css={BackgroundMap(radius)}
-        />
+        <BackgroundMapWrapper ref={el => watchScroll(el)} radius={radius}>
+          <Img
+            fluid={data.primary.background_map.localFile.childImageSharp.fluid}
+            alt={data.primary.background_map.alt}
+            css={BackgroundMap}
+          />
+        </BackgroundMapWrapper>
         <MapPin />
         <AdressBar>
           <div dangerouslySetInnerHTML={{__html: data.primary.address.html}}></div>

@@ -2,19 +2,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { graphql } from 'gatsby'
-import styled from '@emotion/styled'
-import { Global, css } from '@emotion/core'
 import SEO from '../components/SEO'
-import Header from '../components/Header'
 import Slices from '../components/Slices'
 
-import website from '../../config/website'
-import { LocaleContext } from '../components/Layout'
-import LocalizedLink from '../components/LocalizedLink'
-
 const Service = ({ data: { service }, pageContext: { locale }, location }) => {
-  // const lang = React.useContext(LocaleContext)
-  // const i18n = lang.i18n[lang.locale]
 
   return (
     <>

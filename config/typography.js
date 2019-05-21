@@ -13,6 +13,7 @@ const typography = new Typography({
     },
     h2: {
       textAlign: 'center',
+      marginTop: rhythm(1),
     }
   }),
 })

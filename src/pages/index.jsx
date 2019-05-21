@@ -8,7 +8,6 @@ import { Wrapper, Title } from '../components'
 import website from '../../config/website'
 import { LocaleContext } from '../components/Layout'
 import SEO from '../components/SEO'
-import logoSVG from '../img/logo_full.svg'
 import LocalizedLink from '../components/LocalizedLink';
 
 
