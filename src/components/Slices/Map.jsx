@@ -171,7 +171,7 @@ const Map = ({ data }) => {
         <MapPin />
         <AdressBar>
           <div dangerouslySetInnerHTML={{__html: data.primary.address.html}}></div>
-          <a href={data.primary.navigate_link.url} target="_blank"><FontAwesomeIcon icon={faDirections} size="lg" /></a>
+          <a href={data.primary.navigate_link.url} target="_blank" rel="noreferrer" title="Get Directions"><FontAwesomeIcon icon={faDirections} size="lg" /></a>
         </AdressBar>
       </InnerWrapper>
   );
