@@ -38,12 +38,12 @@ export const pageQuery = graphql`
       data {
         name {
           text
-          meta_title {
-            text
-          }
-          meta_description {
-            text
-          }
+        }
+        meta_title {
+          text
+        }
+        meta_description {
+          text
         }
         body {
           ... on PrismicServiceBodyBanner {
