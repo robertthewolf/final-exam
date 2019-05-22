@@ -4,7 +4,6 @@ import styled from "@emotion/styled";
 import { css } from "@emotion/core";
 import Img from "gatsby-image";
 import { rhythm } from "../../../config/typography";
-// import { Parallax } from "react-scroll-parallax";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlay } from "@fortawesome/free-solid-svg-icons";
 import PrismicLink from "../PrismicLink"
@@ -84,13 +83,6 @@ const ButtonWrapper = styled.div`
 `;
 
 const Banner = ({ data }) => {
-  
-  useEffect(() => {
-    if (typeof window !== `undefined`) {
-      window.location.hash = '#banner'
-      window.scrollTo(document.querySelector('#banner'));
-    }
-  }, []); 
   
   return (
     <Container id="banner">

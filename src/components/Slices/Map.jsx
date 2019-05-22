@@ -155,9 +155,9 @@ const Map = ({ data }) => {
           }}
           radius={radius}
         >
-          {data.items.map(i => (
-            <span>
-              {i.place.text} {i.time.text}.{" "}
+          {data.items.map((node, i) => (
+            <span key={i.toString()}>
+              {node.place.text} {node.time.text}.{" "}
             </span>
           ))}
         </RoundText>

@@ -6,8 +6,6 @@ import Img from "gatsby-image";
 import Slices from "./index";
 import {rhythm} from '../../../config/typography'
 
-import Wrapper from '../Wrapper'
-
 const RoomSelector = styled.section`
   overflow-x: scroll;
   width: auto;
@@ -109,7 +107,7 @@ const RoomImage = css`
 `;
 
 const RoomList = ({data}) => {
-  const [activeRoom, setActiveRoom] = useState(null);
+  const [activeRoom, setActiveRoom] = useState(data.items[0].link_to_room.document[0].uid);
 
   return (
     <>

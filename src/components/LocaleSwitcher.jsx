@@ -25,8 +25,6 @@ const Wrapper = styled.div`
 
 const LocaleSwitcher = ({ pageContext: { locale } }) => {
   const data = useStaticQuery(query)
-
-  console.log(locale)
   
   return(
   <Wrapper data-name="locale-switcher">
@@ -35,7 +33,7 @@ const LocaleSwitcher = ({ pageContext: { locale } }) => {
       if (node.lang === locale) return null;
       
       return (
-      <Link hrefLang={node.lang} to={node.data.language_url}>
+      <Link hrefLang={node.lang} to={node.data.language_url} key={node.lang}>
         {localeEmoji(node.lang)}
       </Link>
     )})}

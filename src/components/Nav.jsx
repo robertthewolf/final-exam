@@ -1,7 +1,6 @@
-import React from 'react'
+import React, {useState} from 'react'
 import PropTypes from 'prop-types'
 import styled from '@emotion/styled'
-import { css } from '@emotion/core'
 import { graphql, useStaticQuery } from 'gatsby'
 import LocalizedLink from './LocalizedLink';
 import { rhythm } from '../../config/typography'
@@ -45,13 +44,19 @@ a {
 `
 
 const Nav = ({ pageContext: { locale }, location }) => {
+    const [active, setActive] = useState('/');
+
     const data = useStaticQuery(query)
-    const services = data.allPrismicService.edges.filter(e => e.node.lang === locale)
+    const homepage = data.allPrismicSiteSettings.edges.filter(e => e.node.lang === locale)[0].node.data.homepage.uid
+    const services = data.allPrismicService.edges.filter(e => e.node.lang === locale).map(s =>  ({
+      link: s.node.uid === homepage ? '/' : s.node.uid,
+      label: s.node.data.name.text
+    }))
 
     return (
     <Wrapper>
-      {services.map(({ node }) => (
-        <LocalizedLink to={node.uid} data-active={location.href.includes(node.uid)}>{node.data.name.text}</LocalizedLink>
+      {services.map((service, i) => (
+        <LocalizedLink to={service.link} key={i.toString()} data-active={service.link === active} onClick={() => setActive(service.link)}>{service.label}</LocalizedLink>
       ))}
     </Wrapper>
 )}
@@ -80,5 +85,18 @@ const query = graphql`
           }
         }
       }
+      allPrismicSiteSettings {
+          edges {
+            node {
+              id
+              lang
+              data {
+                homepage {
+                  uid
+                }
+              }
+            }
+          }
+        }
   }
 `

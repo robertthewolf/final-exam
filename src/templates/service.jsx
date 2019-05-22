@@ -9,7 +9,7 @@ const Service = ({ data: { service }, pageContext: { locale }, location }) => {
 
   return (
     <>
-      <SEO title={service.data.name.text} pathname={location.pathname} locale={locale} />
+      <SEO title={service.data.name.text} pathname={location.pathname} locale={locale} desc='' />
       <Slices allSlices={service.data.body} />
     </>
   )

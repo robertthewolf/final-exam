@@ -1,7 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
 import styled from "@emotion/styled";
-import { css } from "@emotion/core";
 import { rhythm } from '../../../config/typography'
 
 import Wrapper from '../Wrapper'
@@ -20,7 +19,6 @@ const Container = styled.div`
   p {
     margin-top: ${rhythm(1)};
     margin-bottom: ${rhythm(.5)};
-    
   }
 
   a {
@@ -51,11 +49,11 @@ const CTA = ({ data }) => {
     <Wrapper>
       <Container>
         <h2>{data.primary.title.text}</h2>
-        {data.items.map(item => (
-          <>
+        {data.items.map((item, i) => (
+          <div key={i.toString()}>
             <p>{item.text.text}</p>
             <a href={item.button_link.url}>{item.button_text.text}</a>
-          </>
+          </div>
         ))}
       </Container>
     </Wrapper>

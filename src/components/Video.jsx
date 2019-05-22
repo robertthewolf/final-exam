@@ -53,7 +53,7 @@ const Video = forwardRef((props, ref) => {
     return (
         <Portal>
             <Absolute data-open={open} onClick={close}>
-                <video playsinline="true" ref={videoEl} onEnded={close}>
+                <video playsInline={true} ref={videoEl} onEnded={close}>
                     <source src={props.source} type="video/mp4" />
                     Your browser does not support the video tag.
                 </video>

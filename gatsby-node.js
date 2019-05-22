@@ -58,6 +58,20 @@ exports.createPages = async ({ graphql, actions }) => {
             node {
               lang
               uid
+              id
+            }
+          }
+        }
+        settings: allPrismicSiteSettings {
+          edges {
+            node {
+              id
+              lang
+              data {
+                homepage {
+                  uid
+                }
+              }
             }
           }
         }
@@ -68,13 +82,17 @@ exports.createPages = async ({ graphql, actions }) => {
   const serviceList = result.data.services.edges
   // const postsList = result.data.posts.edges
 
-  serviceList.forEach(edge => {
+  serviceList.forEach(service => {
+
+    homepageId = result.data.settings.edges.filter(set => set.node.lang === service.node.lang)[0].node.data.homepage.uid
+    path = homepageId === service.node.uid ? '/' : localizedSlug(service.node);
+
     createPage({
-      path: localizedSlug(edge.node),
+      path: path,
       component: serviceTemplate,
       context: {
-        uid: edge.node.uid,
-        locale: edge.node.lang,
+        uid: service.node.uid,
+        locale: service.node.lang,
       },
     })
   })

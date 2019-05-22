@@ -7,9 +7,7 @@
   "author": "Robert Wolf <wolfrob35@gmail.com>",
   "scripts": {
     "build": "gatsby build",
-    "dev": "gatsby develop -o",
-    "develop": "gatsby develop --host $(ifconfig | awk '/inet 192\\.168\\.[0-9]+\\.[0-9]+/{print $2}') --port 8000",
-    "serve": "gatsby serve"
+    "develop": "gatsby develop --host $(ifconfig | awk '/inet 192\\.168\\.[0-9]+\\.[0-9]+/{print $2}') --port 8000"
   },
   "dependencies": {
     "@emotion/core": "^10.0.10",
@@ -51,37 +49,8 @@
     "react-dom": "^16.8.6",
     "react-helmet": "^5.2.1",
     "react-portal": "^4.2.0",
-    "react-scroll-parallax": "^2.1.2",
     "react-typography": "^0.16.19",
     "smooth-scroll": "^16.0.3",
-    "typeface-lora": "^0.0.72",
-    "typeface-source-sans-pro": "^0.0.54",
     "typography": "^0.16.19"
-  },
-  "devDependencies": {
-    "babel-eslint": "^10.0.1",
-    "cross-env": "^5.2.0",
-    "cypress": "^3.3.0",
-    "cypress-testing-library": "^2.6.0",
-    "eslint": "^5.16.0",
-    "eslint-config-airbnb": "^17.1.0",
-    "eslint-config-prettier": "^4.3.0",
-    "eslint-plugin-cypress": "^2.2.1",
-    "eslint-plugin-import": "^2.17.2",
-    "eslint-plugin-jsx-a11y": "^6.2.1",
-    "eslint-plugin-prettier": "^3.1.0",
-    "eslint-plugin-react": "^7.13.0",
-    "eslint-plugin-react-hooks": "^1.6.0",
-    "gatsby-cypress": "^0.1.9",
-    "prettier": "^1.17.1",
-    "start-server-and-test": "^1.9.0"
-  },
-  "keywords": [
-    "gatsby",
-    "starter",
-    "prismic",
-    "typography",
-    "minimal",
-    "gatsby-starter"
-  ]
+  }
 }

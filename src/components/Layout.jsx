@@ -1,16 +1,13 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Global, css } from '@emotion/core'
-import styled from '@emotion/styled'
 import { graphql, useStaticQuery } from 'gatsby'
 import { ThemeProvider } from 'emotion-theming'
-import { ParallaxProvider } from 'react-scroll-parallax'
 
 import LocaleSwitcher from './LocaleSwitcher'
 import Header from './Header'
 import Nav from './Nav'
 import Slices from './Slices'
-import Footer from './Footer'
 import { theme, reset } from '../styles'
 import i18n from '../../config/i18n'
 
@@ -28,10 +25,6 @@ const globalStyle = css`
     color: ${theme.colors.greyLight};
     background-color: ${theme.colors.bg};
     overflow-x: hidden;
-  }
-  ::selection {
-    /* color: ${theme.colors.bg};
-    background-color: ${theme.colors.primary}; */
   }
   a {
     transition: all 0.4s ease-in-out;
@@ -56,7 +49,6 @@ const Layout = ({ children, pageContext: { locale }, location }) => {
 
   return (
     <LocaleContext.Provider value={{ locale, i18n }}>
-      <ParallaxProvider>
         <ThemeProvider theme={theme}>
           <>
             <Global styles={globalStyle} />
@@ -64,13 +56,9 @@ const Layout = ({ children, pageContext: { locale }, location }) => {
             <Header pageContext={{locale}} />
             <Nav pageContext={{locale}} location={location} />
             {children}
-            {/* <Footer>
-              <div dangerouslySetInnerHTML={{ __html: footer }} />
-            </Footer> */}
           </>
           <Slices allSlices={settings.data.body} />
         </ThemeProvider>
-      </ParallaxProvider>
     </LocaleContext.Provider>
   )
 }
