@@ -84,8 +84,9 @@ exports.createPages = async ({ graphql, actions }) => {
 
   serviceList.forEach(service => {
 
-    homepageId = result.data.settings.edges.filter(set => set.node.lang === service.node.lang)[0].node.data.homepage.uid
-    path = homepageId === service.node.uid ? '/' : localizedSlug(service.node);
+    const settings = result.data.settings.edges.filter(set => set.node.lang === service.node.lang)[0].node
+    const homepageId = settings.data.homepage.uid
+    const path = homepageId === service.node.uid ? '/' : localizedSlug(service.node);
 
     createPage({
       path: path,
