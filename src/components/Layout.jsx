@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Global, css } from '@emotion/core'
+import styled from "@emotion/styled";
 import { graphql, useStaticQuery } from 'gatsby'
 import { ThemeProvider } from 'emotion-theming'
 
@@ -10,6 +11,7 @@ import Nav from './Nav'
 import Slices from './Slices'
 import { theme, reset } from '../styles'
 import i18n from '../../config/i18n'
+import {fadeIn} from '../styles/animations'
 
 const globalStyle = css`
   ${reset}
@@ -37,6 +39,11 @@ const globalStyle = css`
   }
 `
 
+const Content = styled.div`
+  opacity: 0;
+  animation: ${fadeIn} 2.5s ease-in-out 1.5s forwards;
+`
+
 if (typeof window !== "undefined") {
   require("smooth-scroll")('a[href*="#"]')
 }
@@ -50,14 +57,14 @@ const Layout = ({ children, pageContext: { locale }, location }) => {
   return (
     <LocaleContext.Provider value={{ locale, i18n }}>
         <ThemeProvider theme={theme}>
-          <>
             <Global styles={globalStyle} />
             <LocaleSwitcher pageContext={{locale}} />
             <Header pageContext={{locale}} />
             <Nav pageContext={{locale}} location={location} />
-            {children}
-          </>
-          <Slices allSlices={settings.data.body} />
+            <Content>
+              {children}
+              <Slices allSlices={settings.data.body} />
+            </Content>
         </ThemeProvider>
     </LocaleContext.Provider>
   )

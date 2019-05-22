@@ -1,24 +1,17 @@
-var {useState} = require('react');
+module.exports = (element) => {
 
-module.exports = function useReveal(element) {
-
-    if (element === null) return cleanUp;
+    if (element === null) return;
     
-    var windowHeight = window.innerHeight;
+    let windowHeight = window.innerHeight;
 
-    var cleanUp = () => {
-        window.removeEventListener('scroll', check);
-        window.removeEventListener('resize', onResize);
-    }
-
-    var check = () => {
-        var clientRect = element.getBoundingClientRect();
-        var elCenterPosition = (clientRect.top + clientRect.bottom - windowHeight) / 2;
+    const check = () => {
+        const clientRect = element.getBoundingClientRect();
+        const elCenterPosition = (clientRect.top + clientRect.bottom - windowHeight) / 2;
 
         element.style.setProperty('--scroll-position', elCenterPosition);
     }
 
-    var onResize = () => {
+    const onResize = () => {
         windowHeight = window.innerHeight;
         check();
     }
@@ -27,5 +20,4 @@ module.exports = function useReveal(element) {
     window.addEventListener('resize', onResize);
     check();
 
-    return cleanUp;
 }

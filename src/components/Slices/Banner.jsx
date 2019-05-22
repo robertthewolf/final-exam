@@ -19,7 +19,7 @@ const Container = styled.section`
 `;
 
 
-const ParallaxImage = styled.div`
+const ParallaxContainer = styled.div`
   position: absolute;
   top: 0;
   left: 0;
@@ -86,14 +86,14 @@ const Banner = ({ data }) => {
   
   return (
     <Container id="banner">
-      <ParallaxImage ref={el => watchScroll(el)}>
+      <ParallaxContainer ref={el => watchScroll(el)}>
         <Img
           fluid={data.primary.image1.localFile.childImageSharp.fluid}
           alt={data.primary.image1.alt}
           css={BannerImage}
         />
         <Overlay />
-      </ParallaxImage>
+      </ParallaxContainer>
       <Overlay />
       <ContentWrapper>
         <TextBox dangerouslySetInnerHTML={{ __html: data.primary.text.html }} />

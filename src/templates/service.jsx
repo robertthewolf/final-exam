@@ -1,31 +1,35 @@
 /* eslint react/destructuring-assignment: 0 */
-import React from 'react'
-import PropTypes from 'prop-types'
-import { graphql } from 'gatsby'
-import SEO from '../components/SEO'
-import Slices from '../components/Slices'
+import React from "react";
+import PropTypes from "prop-types";
+import { graphql } from "gatsby";
+import SEO from "../components/SEO";
+import Slices from "../components/Slices";
 
 const Service = ({ data: { service }, pageContext: { locale }, location }) => {
-
   return (
     <>
-      <SEO title={service.data.name.text} pathname={location.pathname} locale={locale} desc='' />
+      <SEO
+        title={service.data.meta_title.text}
+        desc={service.data.meta_description.text}
+        pathname={location.pathname}
+        locale={locale}
+      />
       <Slices allSlices={service.data.body} />
     </>
-  )
-}
+  );
+};
 
-export default Service
+export default Service;
 
 Service.propTypes = {
   data: PropTypes.shape({
-    service: PropTypes.object.isRequired,
+    service: PropTypes.object.isRequired
   }).isRequired,
   location: PropTypes.object.isRequired,
   pageContext: PropTypes.shape({
-    locale: PropTypes.string.isRequired,
-  }).isRequired,
-}
+    locale: PropTypes.string.isRequired
+  }).isRequired
+};
 
 export const pageQuery = graphql`
   query ServicePage($uid: String!, $locale: String!) {
@@ -34,9 +38,14 @@ export const pageQuery = graphql`
       data {
         name {
           text
+          meta_title {
+            text
+          }
+          meta_description {
+            text
+          }
         }
         body {
-
           ... on PrismicServiceBodyBanner {
             slice_type
             id
@@ -80,7 +89,7 @@ export const pageQuery = graphql`
                 text
               }
             }
-          	items {
+            items {
               link_to_room {
                 id
                 url
@@ -108,7 +117,6 @@ export const pageQuery = graphql`
                       text
                     }
                     body {
-
                       ... on PrismicRoomBodyText {
                         id
                         slice_type
@@ -119,7 +127,7 @@ export const pageQuery = graphql`
                         }
                       }
 
-                      ...on PrismicRoomBodyImageGallery {
+                      ... on PrismicRoomBodyImageGallery {
                         id
                         slice_type
                         items {
@@ -139,7 +147,7 @@ export const pageQuery = graphql`
                         }
                       }
 
-                      ...on PrismicRoomBodyFeatures {
+                      ... on PrismicRoomBodyFeatures {
                         slice_type
                         id
                         items {
@@ -149,15 +157,14 @@ export const pageQuery = graphql`
                           }
                         }
                       }
-
                     }
                   }
                 }
               }
             }
           }
-          
-          ...on PrismicServiceBodyCallToAction {
+
+          ... on PrismicServiceBodyCallToAction {
             id
             slice_type
             primary {
@@ -181,9 +188,8 @@ export const pageQuery = graphql`
               }
             }
           }
-
         }
       }
     }
   }
-`
+`;

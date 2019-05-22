@@ -35,7 +35,7 @@ const Container = styled.div`
       transform: scale(.95);
     }
 
-    &:first-of-type {
+    div:first-of-type & {
       color: ${p => p.theme.colors.bgLight};
       background-color: ${p => p.theme.colors.white};
     }
