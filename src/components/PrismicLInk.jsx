@@ -1,4 +1,4 @@
-import React, {useState, useRef } from "react";
+import React, {useRef } from "react";
 import PropTypes from "prop-types";
 import styled from "@emotion/styled";
 import { Link } from "gatsby";
@@ -52,5 +52,5 @@ const PrismicLink = ({ link_type, url, children }) => {
 export default PrismicLink;
 
 PrismicLink.propTypes = {
-  //   children: PropTypes.node.isRequired
+    children: PropTypes.node.isRequired
 };
