@@ -6,6 +6,9 @@ import SEO from "../components/SEO";
 import Slices from "../components/Slices";
 
 const Service = ({ data: { service }, pageContext: { locale }, location }) => {
+
+  console.log(service)
+
   return (
     <>
       <SEO

@@ -11,7 +11,11 @@ import Map from './Map'
 import Review from './Review'
 import Social from './Social'
 
-const Slices = ({ allSlices }) => allSlices.map(s => {
+const Slices = ({ allSlices }) => {
+
+    if (allSlices === null) return null;
+    
+    return allSlices.map(s => {
 
     switch (s.slice_type) {
 
@@ -45,7 +49,7 @@ const Slices = ({ allSlices }) => allSlices.map(s => {
         default:
             return null
     }
-})
+})}
 
 export default Slices
 

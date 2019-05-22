@@ -11,13 +11,7 @@ module.exports = (element) => {
         element.style.setProperty('--scroll-position', elCenterPosition);
     }
 
-    const onResize = () => {
-        windowHeight = window.innerHeight;
-        check();
-    }
-
     window.addEventListener('scroll', check);
-    window.addEventListener('resize', onResize);
     check();
 
 }

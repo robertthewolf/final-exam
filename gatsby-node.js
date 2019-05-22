@@ -86,10 +86,13 @@ exports.createPages = async ({ graphql, actions }) => {
 
     const settings = result.data.settings.edges.filter(set => set.node.lang === service.node.lang)[0].node
     const homepageId = settings.data.homepage.uid
-    const path = homepageId === service.node.uid ? '/' : localizedSlug(service.node);
+    const slug = homepageId === service.node.uid ? {...service.node, uid: ''} : service.node
+
+    console.log(localizedSlug(slug))
+    console.log(service.node.uid)
 
     createPage({
-      path: path,
+      path: localizedSlug(slug),
       component: serviceTemplate,
       context: {
         uid: service.node.uid,

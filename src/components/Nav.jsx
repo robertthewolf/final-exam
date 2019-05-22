@@ -44,12 +44,12 @@ a {
 `
 
 const Nav = ({ pageContext: { locale }, location }) => {
-    const [active, setActive] = useState('/');
+    const [active, setActive] = useState('');
 
     const data = useStaticQuery(query)
     const homepage = data.allPrismicSiteSettings.edges.filter(e => e.node.lang === locale)[0].node.data.homepage.uid
     const services = data.allPrismicService.edges.filter(e => e.node.lang === locale).map(s =>  ({
-      link: s.node.uid === homepage ? '/' : s.node.uid,
+      link: s.node.uid === homepage ? '' : s.node.uid,
       label: s.node.data.name.text
     }))
 

@@ -54,6 +54,8 @@ const Layout = ({ children, pageContext: { locale }, location }) => {
   const data = useStaticQuery(query)
   const settings = data.allPrismicSiteSettings.edges.filter(e => e.node.lang === locale)[0].node
 
+  console.log(locale);
+
   return (
     <LocaleContext.Provider value={{ locale, i18n }}>
         <ThemeProvider theme={theme}>

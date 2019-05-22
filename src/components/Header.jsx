@@ -5,7 +5,6 @@ import { css, keyframes } from '@emotion/core'
 import { graphql, useStaticQuery } from 'gatsby'
 import Img from 'gatsby-image'
 import Wrapper from '../components/Wrapper'
-import LocalizedLink from './LocalizedLink';
 import typography, {rhythm} from '../../config/typography'
 import {fadeIn} from '../styles/animations'
 
